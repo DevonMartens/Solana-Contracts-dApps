@@ -18,7 +18,8 @@ What are SPL Tokens? Another essential component of the Solana ecosystem is its 
 
 * To confirm head to [Solana's Block Explorer](https://explorer.solana.com/) click the button on the side to switch to devnet and paste your public key.
 
-4. **To airdrop sol** type `solana aidrop 2 publicKey --url devnet ` in terminal `solana airdrop 2 CJcNuWuFNthB6rUwvHEHatS3YvnNKQYZPEvQrySc2oQC --url devnet `
+4. **To airdrop sol** type `solana aidrop 2 publicKey --url devnet ` in terminal `solana airdrop 2 8bUF5EjjSD8EHhcnGdu7EK9WrK9VfvW6FuF4ZDmgvt8q --url devnet `
+
 
 ---
 
