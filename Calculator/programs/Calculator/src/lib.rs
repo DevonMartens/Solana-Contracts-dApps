@@ -1,4 +1,5 @@
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::entrypoint::ProgramResult;
 
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 
@@ -18,12 +19,13 @@ pub mod calculator {
     3. On the third line we modify that account.
     4. We use Ok to let solana know the function was run successfully
     */
-}
     pub fn create(ctx: Context<Create>, init_message: String) -> ProgramResult {
-    let calculator = &mut ctx.accounts.calculator;
-    calculator.greeting = init_message;
-    Ok(())
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.greeting = init_message;
+        Ok(())
+    }
 }
+
 // user defined function called initalize and when it is called the program exits
 //most basic anchor program
 /*

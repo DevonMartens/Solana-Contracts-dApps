@@ -1,7 +1,7 @@
-const asser = require("assert")
+const assert = require("assert")
 const anchor = require("@project-serum/anchor");
-const { assert } = require("console");
 const {SystemProgram} = anchor.web3
+
 
 //this is a mocha test like used in truffle and hardhat for solidity devs
 //takes a describe block it block
@@ -9,7 +9,11 @@ const {SystemProgram} = anchor.web3
 
 describe('Calculator', () => {
     //provider is an abstraction of a connection to a solana node
+    const provider = anchor.AnchorProvider.env();
+    //or use const provider = anchor.AnchorProvider.local();
+    /*this way is outdated
     const provider = anchor.Provider.local();
+    */
     anchor.setProvider(provider);
     //here is a varaible representing the calculator account 
     //we use a keypair to represent the account generated via anchor
