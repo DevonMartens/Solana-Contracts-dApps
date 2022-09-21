@@ -55,10 +55,18 @@ pub mod calculator {
     Division function
     @Params: ...num1 & num2 (divide num2 from num1)
     */
-
     pub fn div(ctx: Context<Div>, num1: i64, num2: i64) -> ProgramResult {
         let calculator = &mut ctx.accounts.calculator;
         calculator.result = num1 / num2;
+        Ok(())
+    }
+    /* 
+    Multiplication function
+    @Params: ...num1 & num2 (multiply num1 by num2)
+    */
+    pub fn mul(ctx: Context<Mul>, num1: i64, num2: i64) -> ProgramResult {
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.result = num1 * num2;
         Ok(())
     }
 }
@@ -126,6 +134,15 @@ dev: defines the context for the division function
 */
 #[derive(Accounts)]
 pub struct Div<'info> {
+    //allows us to be able to change this account
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>
+}
+/*
+dev: defines the context for the multiplication function
+*/
+#[derive(Accounts)]
+pub struct Mul<'info> {
     //allows us to be able to change this account
     #[account(mut)]
     pub calculator: Account<'info, Calculator>

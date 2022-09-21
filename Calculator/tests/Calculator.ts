@@ -79,4 +79,15 @@ describe('Calculator', () => {
         //check if result is 4
         assert.ok(account.result.eq(new anchor.BN(4)))
     })
+    it("multiplies one number by another", async() => {
+        //calls the div function function
+        await program.rpc.mul(new anchor.BN(3), new anchor.BN(5), {
+            accounts: {
+                calculator: calculator.publicKey,
+            }
+        })
+        const account = await program.account.calculator.fetch(calculator.publicKey)
+        //check if result is 4
+        assert.ok(account.result.eq(new anchor.BN(15)))
+    })
 })
