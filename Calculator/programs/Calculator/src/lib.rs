@@ -24,6 +24,11 @@ pub mod calculator {
         calculator.greeting = init_message;
         Ok(())
     }
+/**  
+================================================
+|                Math Operations               |
+================================================
+**/
     /* 
     addition function
     * we do not use the create function because we need a different account for this
@@ -37,11 +42,34 @@ pub mod calculator {
         calculator.result = num1 + num2;
         Ok(())
     }
+   /* 
+    Subtraction function
+    @Params: ...num1 & num2 (subtract num2 from num1)
+    */
+    pub fn sub(ctx: Context<Sub>, num1: i64, num2: i64) -> ProgramResult {
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.result = num1 - num2;
+        Ok(())
+    }
+    /* 
+    Division function
+    @Params: ...num1 & num2 (divide num2 from num1)
+    */
+
+    pub fn div(ctx: Context<Div>, num1: i64, num2: i64) -> ProgramResult {
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.result = num1 / num2;
+        Ok(())
+    }
 }
 
-// user defined function called initalize and when it is called the program exits
-//most basic anchor program
 /*
+Ref: Deleted boilerplate: user defined function called initalize and when it is called the program exits- most basic anchor program
+*/
+/*
+
+**Using Accounts**
+
 Use derive accounts Macro to indicate that this is a context
 * inside the {} we have info on the accounts we want to use
 * need an account for calculator - we create that using the init macro 
@@ -49,6 +77,11 @@ INIT means - create new (create a new calculator)
 payer=user mean that the payment in sol will come from the user of the dApp
 SPACE argument means the amount of space to be allocated on chain for the calculator account
 */
+/**  
+================================================
+|             Create Calculator Account        |
+================================================
+**/
 #[derive(Accounts)]
 //create function
 
@@ -62,11 +95,37 @@ pub struct Create<'info> {
     //system specifications of solana blockchain
     pub system_program: Program<'info, System>,
 }
-//defines the context for our addition functions
+/**  
+================================================
+|      Math Operations Accounts                |
+================================================
+**/
+
+/*
+dev: defines the context for our addition functions
+*/
 #[derive(Accounts)]
-//not specify spaace beacuse we are not creating new account
-//we are chaning an old one but we specify mut b/c we are adjusting the calculator
+/*not specify spaace beacuse we are not creating new account
+we are chaning an old one but we specify mut b/c we are adjusting the calculator*/
 pub struct Addition<'info> {
+    //allows us to be able to change this account
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>
+}
+/*
+dev: defines the context for our subtraction function
+*/
+#[derive(Accounts)]
+pub struct Sub<'info> {
+    //allows us to be able to change this account
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>
+}
+/*
+dev: defines the context for the division function
+*/
+#[derive(Accounts)]
+pub struct Div<'info> {
     //allows us to be able to change this account
     #[account(mut)]
     pub calculator: Account<'info, Calculator>

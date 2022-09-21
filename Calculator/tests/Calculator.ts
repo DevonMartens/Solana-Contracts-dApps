@@ -57,4 +57,26 @@ describe('Calculator', () => {
         //check if result is 5
         assert.ok(account.result.eq(new anchor.BN(5)))
     })
+    it("subtracts one number from another", async() => {
+        //calls the sub function function
+        await program.rpc.sub(new anchor.BN(10), new anchor.BN(7), {
+            accounts: {
+                calculator: calculator.publicKey,
+            }
+        })
+        const account = await program.account.calculator.fetch(calculator.publicKey)
+        //check if result is 3
+        assert.ok(account.result.eq(new anchor.BN(3)))
+    })
+    it("divides one number by another", async() => {
+        //calls the div function function
+        await program.rpc.div(new anchor.BN(12), new anchor.BN(3), {
+            accounts: {
+                calculator: calculator.publicKey,
+            }
+        })
+        const account = await program.account.calculator.fetch(calculator.publicKey)
+        //check if result is 4
+        assert.ok(account.result.eq(new anchor.BN(4)))
+    })
 })
