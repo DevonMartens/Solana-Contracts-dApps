@@ -24,6 +24,19 @@ pub mod calculator {
         calculator.greeting = init_message;
         Ok(())
     }
+    /* 
+    addition function
+    * we do not use the create function because we need a different account for this
+    * arguments are numbers for adding ...num1 & num2
+    */
+    pub fn add(ctx: Context<Addition>, num1: i64, num2: i64) -> ProgramResult {
+        //refer to calc account because we do have a result field
+        //save the result of the sum
+        let calculator = &mut ctx.accounts.calculator;
+        //calc result is num1 plus num2
+        calculator.result = num1 + num2;
+        Ok(())
+    }
 }
 
 // user defined function called initalize and when it is called the program exits
@@ -49,6 +62,18 @@ pub struct Create<'info> {
     //system specifications of solana blockchain
     pub system_program: Program<'info, System>,
 }
+//defines the context for our addition functions
+#[derive(Accounts)]
+//not specify spaace beacuse we are not creating new account
+//we are chaning an old one but we specify mut b/c we are adjusting the calculator
+pub struct Addition<'info> {
+    //allows us to be able to change this account
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>
+}
+
+
+
 //track 3 things greeting(init_message) msg mathmatical op result and the remainder when dividing
 #[account]
 pub struct Calculator{
