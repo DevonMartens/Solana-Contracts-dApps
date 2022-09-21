@@ -22,7 +22,7 @@ describe('Calculator', () => {
     //allows us to call the methods of the solana program that has been written
     const program = anchor.workspace.Calculator
 
-    it("create a calculator", async() => {
+    it("creates a calculator", async() => {
         //calls the function
         //init_message is "welcome" first arg
         await program.rpc.create("welcome", {
@@ -41,5 +41,20 @@ describe('Calculator', () => {
         const account = await program.account.calculator.fetch(calculator.publicKey)
             //check if greeting field is correct
             assert.ok(account.greeting == "welcome")
+    })
+    it("adds two numbers", async() => {
+        //calls the add function function
+        //we will use anchor big numbers because we cannot directly call # BN
+        //final argument is the context
+        await program.rpc.add(new anchor.BN(2), new anchor.BN(3), {
+            accounts: {
+                //all accounts that are part of context
+                //calls calc creditials created above
+                calculator: calculator.publicKey,
+            }
+        })
+        const account = await program.account.calculator.fetch(calculator.publicKey)
+        //check if result is 5
+        assert.ok(account.result.eq(new anchor.BN(5)))
     })
 })
