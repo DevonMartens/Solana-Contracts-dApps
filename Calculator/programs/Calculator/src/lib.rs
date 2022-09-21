@@ -18,7 +18,7 @@ pub mod calculator {
     3. On the third line we modify that account.
     4. We use Ok to let solana know the function was run successfully
     */
-    pub fun(ctx: Context<Create>, init_message: String) -> ProgramResult
+    pub fn create(ctx: Context<Create>, init_message: String) -> ProgramResult
     let calculator = &mut ctx.accounts.calculator;
     calculator.greeting = init_message;
     Ok(())
@@ -33,7 +33,7 @@ INIT means - create new (create a new calculator)
 payer=user mean that the payment in sol will come from the user of the dApp
 SPACE argument means the amount of space to be allocated on chain for the calculator account
 */
-#derive(Accounts)
+#[derive(Accounts)]
 //create function
 pub struct create<'info>, {
     #[account(init, payer=user, space=264)]
