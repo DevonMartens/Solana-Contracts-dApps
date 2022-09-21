@@ -18,7 +18,8 @@ pub mod calculator {
     3. On the third line we modify that account.
     4. We use Ok to let solana know the function was run successfully
     */
-    pub fn create(ctx: Context<Create>, init_message: String) -> ProgramResult
+}
+    pub fn create(ctx: Context<Create>, init_message: String) -> ProgramResult {
     let calculator = &mut ctx.accounts.calculator;
     calculator.greeting = init_message;
     Ok(())
@@ -35,15 +36,16 @@ SPACE argument means the amount of space to be allocated on chain for the calcul
 */
 #[derive(Accounts)]
 //create function
-pub struct create<'info>, {
+
+pub struct Create<'info> {
     #[account(init, payer=user, space=264)]
-    pub calculator: Account<'info Calculator>,
+    pub calculator: Account<'info, Calculator>,
     //makes user arg mutable 
     #[account(mut)]
     //user is signer b/c to create account they must sign tx
     pub user: Signer<'info>,
     //system specifications of solana blockchain
-    pub system_program: Program<'info, System>
+    pub system_program: Program<'info, System>,
 }
 //track 3 things greeting(init_message) msg mathmatical op result and the remainder when dividing
 #[account]
